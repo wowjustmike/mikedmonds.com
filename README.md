@@ -23,4 +23,4 @@ Then open http://localhost:3000 in Chrome. (Scroll animations need Chrome, Edge 
 Uses Netlify Forms. Turn on email notifications in Netlify: Site configuration → Forms → Form notifications.
 
 ## TODO before switching the domain
-- Copy `privacy.html` over from the old site repo — the Google OAuth app ("Marvin") lists https://www.mikedmonds.com/privacy.html.
+- Copy `privacy.html` over from the old site repo — the Google OAuth app ("Marvin") lists https://mikedmonds.com/privacy.html.
