@@ -150,15 +150,14 @@ pre{margin:0;padding:24px;background:var(--ink);color:#E6EBF1;font-family:var(--
 @keyframes pct{to{--pct:100}}
 @keyframes bar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 @keyframes drift{to{background-position:0 320px,0 320px}}
-@keyframes lift{to{transform:translateY(-70px);opacity:.35}}
-@keyframes tilt{to{transform:rotate(-2.5deg) translateY(40px)}}
-@keyframes zoom{to{transform:scale(1.14)}}
-@keyframes rise{from{opacity:0;transform:translateY(36px)}}
-@keyframes inL{from{opacity:0;transform:translateX(-64px)}}
-@keyframes inR{from{opacity:0;transform:translateX(64px)}}
+@keyframes lift{to{transform:translateY(-160px);opacity:.1}}
+@keyframes zoom{to{transform:scale(1.12) translateY(-5%)}}
+@keyframes rise{from{opacity:0;transform:translateY(160px) scale(.9);filter:blur(8px)}}
+@keyframes inL{from{opacity:0;transform:translateX(-260px) rotate(-4deg)}}
+@keyframes inR{from{opacity:0;transform:translateX(260px) rotate(4deg)}}
 @keyframes ink{from{background-size:0% 100%}}
 @keyframes sweep{0%{transform:scaleX(0);opacity:1}70%{transform:scaleX(1);opacity:1}100%{transform:scaleX(1);opacity:0}}
-@keyframes settle{from{transform:scale(.94);opacity:.4}}
+@keyframes settle{from{transform:scale(.75);opacity:0}}
 @keyframes shrink{from{width:100%}}
 
 @media (prefers-reduced-motion: no-preference){
@@ -171,15 +170,17 @@ pre{margin:0;padding:24px;background:var(--ink);color:#E6EBF1;font-family:var(--
 
     body.home{animation:drift linear both;animation-timeline:scroll(root)}
     .hero-text{animation:lift linear both;animation-timeline:scroll(root);animation-range:0 700px}
-    .hero .photo{animation:tilt linear both;animation-timeline:scroll(root);animation-range:0 800px}
     .hero .photo img{animation:zoom linear both;animation-timeline:scroll(root);animation-range:0 800px}
 
-    .slide-l{animation:inL linear both;animation-timeline:view();animation-range:entry 10% cover 35%}
-    .slide-r{animation:inR linear both;animation-timeline:view();animation-range:entry 10% cover 35%}
-    .reveal{animation:rise linear both;animation-timeline:view();animation-range:entry 0% cover 30%}
-    .row::before{content:'';position:absolute;left:0;right:0;top:-1px;height:2px;background:var(--accent);transform-origin:0 50%;transform:scaleX(0);animation:sweep linear both;animation-timeline:view();animation-range:entry 30% cover 50%}
-    .ink{animation:ink linear both;animation-timeline:view();animation-range:entry 40% cover 45%}
-    .settle{animation:settle linear both;animation-timeline:view();animation-range:entry 0% cover 40%}
+    .slide-l{animation:inL linear both;animation-timeline:view();animation-range:entry 0% entry 100%}
+    .slide-r{animation:inR linear both;animation-timeline:view();animation-range:entry 0% entry 100%}
+    .reveal{animation:rise linear both;animation-timeline:view();animation-range:entry 0% entry 100%}
+    :is(.timeline,.services,.steps,.grid-auto) > :nth-child(2){animation-range:entry 15% entry 100%}
+    :is(.timeline,.services,.steps,.grid-auto) > :nth-child(3){animation-range:entry 30% entry 100%}
+    :is(.timeline,.services,.steps,.grid-auto) > :nth-child(4){animation-range:entry 45% entry 100%}
+    .row::before{content:'';position:absolute;left:0;right:0;top:-1px;height:2px;background:var(--accent);transform-origin:0 50%;transform:scaleX(0);animation:sweep linear both;animation-timeline:view();animation-range:entry 20% entry 100%}
+    .ink{animation:ink linear both;animation-timeline:view();animation-range:entry 40% entry 100%}
+    .settle{animation:settle linear both;animation-timeline:view();animation-range:entry 0% entry 100%}
     .sizes .bar.after{animation:shrink cubic-bezier(.6,0,.2,1) both;animation-timeline:view();animation-range:entry 100% cover 60%}
   }
 }
