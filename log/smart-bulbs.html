@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rethinking cloud-only smart bulbs — Mike Edmonds</title>
+<meta name="description" content="What I learned when my &quot;smart&quot; lights turned out to depend on someone else&#x27;s servers.">
+<link rel="canonical" href="https://www.mikedmonds.com/log/smart-bulbs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rethinking cloud-only smart bulbs">
+<meta property="og:description" content="What I learned when my &quot;smart&quot; lights turned out to depend on someone else&#x27;s servers.">
+<meta property="og:url" content="https://www.mikedmonds.com/log/smart-bulbs">
+<meta property="og:image" content="https://www.mikedmonds.com/images/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<noscript><style>.body[hidden]{display:flex!important}.toggle{display:none}</style></noscript>
+<script src="/main.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="progress" aria-hidden="true"></div>
+<div class="readout" aria-hidden="true">READ</div>
+<div class="wrap">
+
+<header class="site-header">
+<a href="/" class="brand">MIKE EDMONDS / FIELD NOTES</a>
+<nav class="nav" aria-label="Main">
+<a href="/log/" aria-current="page">Log</a>
+<a href="/about">About</a>
+<a href="/work">Work with me</a>
+</nav>
+</header>
+
+<main id="main">
+<article class="article">
+<a href="/log/" class="mono" style="font-size:14px">← The log</a>
+<div class="article-head">
+<div class="kicker" style="letter-spacing:.08em">ENTRY 05 · SMART HOME · SEP 2026 · 3 MIN</div>
+<h1>Rethinking cloud-only smart bulbs</h1>
+<p class="dek">What I learned when my "smart" lights turned out to depend on someone else's servers.</p>
+</div>
+
+<div class="toggle" data-toggle role="group" aria-label="Choose a version">
+<button type="button" data-mode="plain" aria-pressed="true">Plain English</button>
+<button type="button" data-mode="tech" aria-pressed="false">Under the hood</button>
+</div>
+
+<div class="body" data-mode="plain">
+<p>I'm tying my smart home together with Home Assistant: one dashboard for everything, running on my own server instead of five different companies' apps.</p>
+<p>My Wi-Fi bulbs were supposed to support local control. In practice the option never showed up, so they only work by phoning a company's servers. If that company has an outage — or discontinues the product — my lights get dumber.</p>
+<p>So I'm deciding between a bridge that lets them talk locally, or swapping them for Zigbee bulbs, which talk straight to a small antenna on my server. No internet required.</p>
+</div>
+<div class="body" data-mode="tech" hidden>
+<p>Home Assistant Container runs under its own rootless Podman user with host networking. ZHA drives a Sonoff Zigbee 3.0 Dongle Plus V2, passed in by its <code>/dev/serial/by-id</code> path — stable across reboots, unlike <code>/dev/ttyUSB0</code>.</p>
+<pre>--device /dev/serial/by-id/usb-Itead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_V2_&lt;id&gt;-if00-port0</pre>
+<p>The Govee A19s never exposed LAN control in the app despite being listed as supported. Options: govee2mqtt (LAN with cloud fallback), or replace them with Zigbee bulbs that pair straight to ZHA — and, as mains-powered devices, extend the mesh.</p>
+<p>The principle I'm landing on: local-first control, with the cloud as a nice-to-have.</p>
+</div>
+
+<aside class="takeaway reveal">
+<div class="label">WHY IT MATTERS FOR A BUSINESS</div>
+<p>Before buying "smart" anything for the office — locks, cameras, thermostats — ask what happens when the internet or the company goes away. The answer shouldn't be "it stops working."</p>
+</aside>
+
+<nav class="pager" aria-label="More entries">
+<a href="/log/backup">← Previous: My backup went from 5.9 GB to 66 MB</a>
+<a href="/log/seven-days">Next: The bug that only showed up once a week →</a>
+</nav>
+</article>
+</main>
+
+<footer class="site-footer">
+<span>Mike Edmonds · Las Vegas</span>
+<a href="/work">Need a hand? Work with me →</a>
+</footer>
+
+</div>
+</body>
+</html>

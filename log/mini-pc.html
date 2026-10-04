@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Swapping a gaming PC for a 6-watt mini PC — Mike Edmonds</title>
+<meta name="description" content="My always-on server didn&#x27;t need a graphics card. It needed to be cheap to leave running.">
+<link rel="canonical" href="https://www.mikedmonds.com/log/mini-pc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swapping a gaming PC for a 6-watt mini PC">
+<meta property="og:description" content="My always-on server didn&#x27;t need a graphics card. It needed to be cheap to leave running.">
+<meta property="og:url" content="https://www.mikedmonds.com/log/mini-pc">
+<meta property="og:image" content="https://www.mikedmonds.com/images/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<noscript><style>.body[hidden]{display:flex!important}.toggle{display:none}</style></noscript>
+<script src="/main.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="progress" aria-hidden="true"></div>
+<div class="readout" aria-hidden="true">READ</div>
+<div class="wrap">
+
+<header class="site-header">
+<a href="/" class="brand">MIKE EDMONDS / FIELD NOTES</a>
+<nav class="nav" aria-label="Main">
+<a href="/log/" aria-current="page">Log</a>
+<a href="/about">About</a>
+<a href="/work">Work with me</a>
+</nav>
+</header>
+
+<main id="main">
+<article class="article">
+<a href="/log/" class="mono" style="font-size:14px">← The log</a>
+<div class="article-head">
+<div class="kicker" style="letter-spacing:.08em">ENTRY 02 · HARDWARE · SEP 2026 · 3 MIN</div>
+<h1>Swapping a gaming PC for a 6-watt mini PC</h1>
+<p class="dek">My always-on server didn't need a graphics card. It needed to be cheap to leave running.</p>
+</div>
+
+<div class="toggle" data-toggle role="group" aria-label="Choose a version">
+<button type="button" data-mode="plain" aria-pressed="true">Plain English</button>
+<button type="button" data-mode="tech" aria-pressed="false">Under the hood</button>
+</div>
+
+<div class="body" data-mode="plain">
+<p>Marvin, my AI assistant, used to live on my old gaming PC — a big tower with a powerful graphics card. It ran 24/7, burning electricity to do what is mostly waiting for a message.</p>
+<p>I moved it to a Beelink mini PC that fits in one hand. It's silent, it barely sips power, and it does the job just as well, because the heavy AI thinking happens in the cloud anyway.</p>
+<p>I did a fresh install instead of moving the old drive over. More work up front, but I got to rebuild everything knowing what I know now — and it came out much cleaner than the first time.</p>
+</div>
+<div class="body" data-mode="tech" hidden>
+<p>Old box: Ryzen 9 3900, 32 GB, RTX 4070. New box: Beelink Mini S12 Pro — Intel N100 (6 W TDP), 16 GB, 512 GB. The agent calls a hosted model, so the GPU was dead weight.</p>
+<p>I chose a fresh Ubuntu Server install over an SSD transplant: different chipset, NIC and drivers, plus a chance to fix early mistakes. Secrets came out of plaintext config into a proper secrets store, and the root logical volume got extended to use the whole disk.</p>
+<pre>sudo lvextend -r -l +100%FREE /dev/ubuntu-vg/ubuntu-lv</pre>
+<p>Small habit I picked up: the host went from <code>srv-agent</code> to <code>srv-agent01</code>. Naming things with a number from day one pays off the day there's a second one.</p>
+</div>
+
+<aside class="takeaway reveal">
+<div class="label">WHY IT MATTERS FOR A BUSINESS</div>
+<p>Right-size the machine for the job. A closet server that runs all year should be judged on its power bill and its noise, not its benchmark score.</p>
+</aside>
+
+<nav class="pager" aria-label="More entries">
+<a href="/log/own-user">← Previous: I gave my AI assistant its own user account</a>
+<a href="/log/password">Next: The password that never arrived →</a>
+</nav>
+</article>
+</main>
+
+<footer class="site-footer">
+<span>Mike Edmonds · Las Vegas</span>
+<a href="/work">Need a hand? Work with me →</a>
+</footer>
+
+</div>
+</body>
+</html>

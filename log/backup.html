@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My backup went from 5.9 GB to 66 MB — Mike Edmonds</title>
+<meta name="description" content="Turns out a good backup is as much about what you leave out.">
+<link rel="canonical" href="https://www.mikedmonds.com/log/backup">
+<meta property="og:type" content="article">
+<meta property="og:title" content="My backup went from 5.9 GB to 66 MB">
+<meta property="og:description" content="Turns out a good backup is as much about what you leave out.">
+<meta property="og:url" content="https://www.mikedmonds.com/log/backup">
+<meta property="og:image" content="https://www.mikedmonds.com/images/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<noscript><style>.body[hidden]{display:flex!important}.toggle{display:none}</style></noscript>
+<script src="/main.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="progress" aria-hidden="true"></div>
+<div class="readout" aria-hidden="true">READ</div>
+<div class="wrap">
+
+<header class="site-header">
+<a href="/" class="brand">MIKE EDMONDS / FIELD NOTES</a>
+<nav class="nav" aria-label="Main">
+<a href="/log/" aria-current="page">Log</a>
+<a href="/about">About</a>
+<a href="/work">Work with me</a>
+</nav>
+</header>
+
+<main id="main">
+<article class="article">
+<a href="/log/" class="mono" style="font-size:14px">← The log</a>
+<div class="article-head">
+<div class="kicker" style="letter-spacing:.08em">ENTRY 04 · BACKUPS · SEP 2026 · 3 MIN</div>
+<h1>My backup went from 5.9 GB to 66 MB</h1>
+<p class="dek">Turns out a good backup is as much about what you leave out.</p>
+</div>
+<figure class="sizes">
+<div class="lbl"><span>BEFORE</span><span>5.9 GB</span></div>
+<div class="bar"></div>
+<div class="lbl" style="padding-top:8px"><span>AFTER</span><span style="color:var(--accent)">66 MB</span></div>
+<div class="bar after"></div>
+<figcaption>FIG. 1 — NIGHTLY ARCHIVE SIZE, TO SCALE</figcaption>
+</figure>
+
+<div class="toggle" data-toggle role="group" aria-label="Choose a version">
+<button type="button" data-mode="plain" aria-pressed="true">Plain English</button>
+<button type="button" data-mode="tech" aria-pressed="false">Under the hood</button>
+</div>
+
+<div class="body" data-mode="plain">
+<p>I set up a nightly backup for my home server. Every night at 3 a.m. it bundles up everything important onto a USB drive and keeps the last seven nights.</p>
+<p>The first version was 5.9 GB a night. Most of that was stuff the server can rebuild on its own in minutes — like keeping the cardboard box your couch came in, along with the couch.</p>
+<p>Once I cut the rebuildable stuff, it dropped to 66 MB. Same protection, a fraction of the space, and fast enough that I'll actually notice if it ever fails.</p>
+</div>
+<div class="body" data-mode="tech" hidden>
+<p>A root cron job in <code>/etc/cron.d</code> runs a script at 03:00 that tars the agent's home and <code>/srv</code> data to an ext4 USB volume (mounted by UUID in fstab), keeps the 7 newest archives, and logs to <code>/var/log</code>.</p>
+<p>Nearly all the bulk was Podman's overlay storage — container image layers. Those are reproducible from the Containerfile, so they're cache, not data. Excluding them cut the archive by about 99%.</p>
+<pre>tar -czf "$DEST/marvin-backup-$(date +%F-%H%M).tar.gz" \
+  --exclude=/home/openclaw/.local/share/containers/storage \
+  /home/openclaw /srv/marvin
+
+ls -1t "$DEST"/marvin-backup-*.tar.gz | tail -n +8 | xargs -r rm --</pre>
+<p>Still on my list: a real restore test, and a copy that doesn't live in the same room. A USB stick next to the server covers a dead disk — not a fire or a break-in.</p>
+</div>
+
+<aside class="takeaway reveal">
+<div class="label">WHY IT MATTERS FOR A BUSINESS</div>
+<p>Ask two questions: when did we last actually restore something from backup, and is there a copy outside this building? If either answer is "not sure," it's worth a closer look.</p>
+</aside>
+
+<nav class="pager" aria-label="More entries">
+<a href="/log/password">← Previous: The password that never arrived</a>
+<a href="/log/smart-bulbs">Next: Rethinking cloud-only smart bulbs →</a>
+</nav>
+</article>
+</main>
+
+<footer class="site-footer">
+<span>Mike Edmonds · Las Vegas</span>
+<a href="/work">Need a hand? Work with me →</a>
+</footer>
+
+</div>
+</body>
+</html>
